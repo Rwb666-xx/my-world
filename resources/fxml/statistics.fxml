@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.geometry.Side?>
+<?import java.lang.String?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dorm.view.StatisticsController" spacing="20.0" styleClass="statistics-root">
+   <children>
+      <!-- 页面头部 -->
+      <HBox spacing="20" alignment="CENTER_LEFT" styleClass="stats-page-header">
+         <children>
+            <Label text="📊" styleClass="stats-page-icon" />
+            <VBox spacing="5" alignment="CENTER_LEFT">
+               <children>
+                  <Label text="数据统计分析中心" styleClass="stats-page-title" />
+                  <Label text="全面的数据可视化分析，为管理决策提供数据支持" styleClass="stats-page-subtitle" />
+               </children>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="backToMainButton" styleClass="stats-back-button" onAction="#backToMain" text="🏠 返回主界面" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="15.0" left="30.0" right="30.0" top="20.0" />
+         </VBox.margin>
+      </HBox>
+
+      <!-- 快捷操作栏 -->
+      <HBox spacing="15" alignment="CENTER_LEFT" styleClass="stats-toolbar">
+         <children>
+            <Button fx:id="refreshButton" styleClass="stats-primary-button" onAction="#refreshStatistics" text="🔄 刷新数据" />
+            <Button fx:id="exportButton" styleClass="stats-secondary-button" onAction="#exportData" text="📤 导出报告" />
+
+            <Separator orientation="VERTICAL" styleClass="stats-separator" />
+
+            <!-- 时间范围选择 -->
+            <VBox spacing="2" alignment="CENTER_LEFT">
+               <children>
+                  <Label text="时间范围" styleClass="stats-label" />
+                  <ComboBox fx:id="timeRangeCombo" styleClass="stats-combo" prefWidth="100">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="全部时间" />
+                           <String fx:value="本月" />
+                           <String fx:value="本学期" />
+                           <String fx:value="本学年" />
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
+               </children>
+            </VBox>
+
+            <!-- 数据类型选择 -->
+            <VBox spacing="2" alignment="CENTER_LEFT">
+               <children>
+                  <Label text="数据类型" styleClass="stats-label" />
+                  <ComboBox fx:id="dataTypeCombo" styleClass="stats-combo" prefWidth="100">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="综合统计" />
+                           <String fx:value="学生统计" />
+                           <String fx:value="宿舍统计" />
+                           <String fx:value="维修统计" />
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
+               </children>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="15.0" left="30.0" right="30.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+
+      <!-- 统计卡片区域 -->
+      <VBox spacing="20" alignment="CENTER" styleClass="stats-cards-area">
+         <children>
+            <HBox spacing="20" alignment="CENTER">
+               <children>
+                  <!-- 总学生数卡片 -->
+                  <VBox styleClass="stats-overview-card">
+                     <children>
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="👥" styleClass="stats-card-icon" />
+                              <VBox spacing="5">
+                                 <children>
+                                    <Label text="总学生数" styleClass="stats-card-label" />
+                                    <Label fx:id="totalStudentsLabel" text="0" styleClass="stats-card-value" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Label fx:id="studentsChangeLabel" text="较上月 +0" styleClass="stats-card-change positive" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20" right="20" bottom="20" left="20" />
+                     </VBox.margin>
+                  </VBox>
+
+                  <!-- 总宿舍数卡片 -->
+                  <VBox styleClass="stats-overview-card">
+                     <children>
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="🏢" styleClass="stats-card-icon" />
+                              <VBox spacing="5">
+                                 <children>
+                                    <Label text="总宿舍数" styleClass="stats-card-label" />
+                                    <Label fx:id="totalDormitoriesLabel" text="0" styleClass="stats-card-value" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Label fx:id="dormitoriesChangeLabel" text="较上月 +0" styleClass="stats-card-change neutral" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20" right="20" bottom="20" left="20" />
+                     </VBox.margin>
+                  </VBox>
+
+                  <!-- 维修申请数卡片 -->
+                  <VBox styleClass="stats-overview-card">
+                     <children>
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="🔧" styleClass="stats-card-icon" />
+                              <VBox spacing="5">
+                                 <children>
+                                    <Label text="维修申请" styleClass="stats-card-label" />
+                                    <Label fx:id="totalRepairsLabel" text="0" styleClass="stats-card-value" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Label fx:id="repairsChangeLabel" text="较上月 +0" styleClass="stats-card-change positive" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20" right="20" bottom="20" left="20" />
+                     </VBox.margin>
+                  </VBox>
+
+                  <!-- 缴费率卡片 -->
+                  <VBox styleClass="stats-overview-card">
+                     <children>
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="💰" styleClass="stats-card-icon" />
+                              <VBox spacing="5">
+                                 <children>
+                                    <Label text="缴费率" styleClass="stats-card-label" />
+                                    <Label fx:id="paymentRateLabel" text="0%" styleClass="stats-card-value" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Label fx:id="paymentChangeLabel" text="目标 95%" styleClass="stats-card-change info" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20" right="20" bottom="20" left="20" />
+                     </VBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+         </VBox.margin>
+      </VBox>
+
+      <!-- 图表展示区域 -->
+      <VBox spacing="20" alignment="CENTER" VBox.vgrow="ALWAYS" styleClass="stats-charts-area">
+         <children>
+            <Label text="📈 数据趋势分析" styleClass="stats-section-title" />
+
+            <!-- 第一行图表 -->
+            <HBox spacing="20" alignment="CENTER">
+               <children>
+                  <!-- 学生学院分布 -->
+                  <VBox spacing="10" alignment="CENTER" styleClass="stats-chart-card" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label text="学生学院分布" styleClass="stats-chart-title" />
+                        <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS" styleClass="stats-chart-scroll">
+                           <content>
+                              <PieChart fx:id="collegeChart" title="" prefWidth="320" prefHeight="250" styleClass="stats-chart" legendSide="BOTTOM">
+                              </PieChart>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+
+                  <!-- 宿舍使用情况 -->
+                  <VBox spacing="10" alignment="CENTER" styleClass="stats-chart-card" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label text="宿舍使用情况" styleClass="stats-chart-title" />
+                        <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS" styleClass="stats-chart-scroll">
+                           <content>
+                              <BarChart fx:id="dormitoryChart" title="" prefWidth="320" prefHeight="250" styleClass="stats-chart" legendSide="BOTTOM">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </BarChart>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+
+            <!-- 第二行图表 -->
+            <HBox spacing="20" alignment="CENTER">
+               <children>
+                  <!-- 维修申请趋势 -->
+                  <VBox spacing="10" alignment="CENTER" styleClass="stats-chart-card" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label text="维修申请趋势" styleClass="stats-chart-title" />
+                        <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS" styleClass="stats-chart-scroll">
+                           <content>
+                              <LineChart fx:id="repairTrendChart" title="" prefWidth="320" prefHeight="250" styleClass="stats-chart" legendSide="BOTTOM">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+
+                  <!-- 缴费情况统计 -->
+                  <VBox spacing="10" alignment="CENTER" styleClass="stats-chart-card" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label text="缴费情况统计" styleClass="stats-chart-title" />
+                        <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS" styleClass="stats-chart-scroll">
+                           <content>
+                              <PieChart fx:id="paymentChart" title="" prefWidth="320" prefHeight="250" styleClass="stats-chart" legendSide="BOTTOM">
+                              </PieChart>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="15.0" left="30.0" right="30.0" top="5.0" />
+         </VBox.margin>
+      </VBox>
+
+      <!-- 数据表格区域 -->
+      <VBox spacing="15" alignment="CENTER_LEFT" styleClass="stats-table-area" VBox.vgrow="ALWAYS">
+         <children>
+            <Label text="📋 详细数据表" styleClass="stats-section-title" />
+
+            <VBox styleClass="stats-table-container" VBox.vgrow="ALWAYS">
+               <children>
+                  <TableView fx:id="detailedTable" styleClass="stats-table" VBox.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="categoryColumn" text="分类" prefWidth="120" styleClass="stats-table-column" />
+                        <TableColumn fx:id="nameColumn" text="名称" prefWidth="180" styleClass="stats-table-column" />
+                        <TableColumn fx:id="countColumn" text="数量" prefWidth="80" styleClass="stats-table-column" />
+                        <TableColumn fx:id="percentageColumn" text="占比(%)" prefWidth="80" styleClass="stats-table-column" />
+                        <TableColumn fx:id="statusColumn" text="状态" prefWidth="100" styleClass="stats-table-column" />
+                     </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="25.0" left="30.0" right="30.0" top="5.0" />
+         </VBox.margin>
+      </VBox>
+
+      <!-- 底部状态栏 -->
+      <HBox spacing="20" alignment="CENTER_LEFT" styleClass="stats-status-bar">
+         <children>
+            <Label fx:id="lastUpdateLabel" text="最后更新: 2024-01-11 15:00:00" styleClass="stats-status-text" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="dataSourceLabel" text="数据来源: 宿舍管理系统数据库" styleClass="stats-status-text" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="20.0" left="30.0" right="30.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>

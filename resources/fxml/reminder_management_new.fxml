@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
+
+<VBox stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dorm.view.ReminderManagementController" spacing="20.0" styleClass="reminder-management-root">
+   <children>
+      <!-- 标题区域 -->
+      <VBox spacing="15" alignment="CENTER" styleClass="page-header">
+         <children>
+            <Label text="🔔" styleClass="page-icon" />
+            <Label text="提醒管理" styleClass="page-title" />
+            <Label text="管理系统中的各类提醒信息" styleClass="page-subtitle" />
+            <Separator styleClass="page-separator" />
+         </children>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </VBox>
+
+      <!-- 工具栏区域 -->
+      <HBox spacing="15.0" alignment="CENTER_LEFT" styleClass="toolbar">
+         <children>
+            <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshReminders" text="刷新" styleClass="primary-button" />
+            <Button fx:id="checkAllButton" mnemonicParsing="false" onAction="#checkAllReminders" text="检查所有" styleClass="action-button" />
+            <Button fx:id="markProcessedButton" mnemonicParsing="false" onAction="#markAsProcessed" text="标记已处理" styleClass="action-button" />
+            <Button fx:id="deleteProcessedButton" mnemonicParsing="false" onAction="#deleteProcessed" text="删除已处理" styleClass="danger-button" />
+         </children>
+         <HBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </HBox.margin>
+      </HBox>
+
+      <!-- 搜索区域 -->
+      <HBox spacing="15.0" alignment="CENTER_LEFT" styleClass="search-area">
+         <children>
+            <TextField fx:id="searchField" promptText="输入搜索关键词" styleClass="search-field" HBox.hgrow="ALWAYS" />
+            <ComboBox fx:id="searchTypeCombo" styleClass="search-combo">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="全部" />
+                     <String fx:value="学号" />
+                     <String fx:value="姓名" />
+                     <String fx:value="类型" />
+                  </FXCollections>
+               </items>
+            </ComboBox>
+            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchReminders" text="搜索" styleClass="primary-button" />
+         </children>
+         <HBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </HBox.margin>
+      </HBox>
+
+      <!-- 状态信息区域 -->
+      <HBox spacing="20.0" alignment="CENTER_LEFT" styleClass="status-area">
+         <children>
+            <Label fx:id="statusLabel" text="共 0 条记录" styleClass="status-label" />
+            <Label fx:id="selectedLabel" text="已选择 0 项" styleClass="status-label" />
+         </children>
+         <HBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </HBox.margin>
+      </HBox>
+
+      <!-- 表格区域 -->
+      <VBox spacing="10.0" VBox.vgrow="ALWAYS" styleClass="table-container">
+         <children>
+            <TableView fx:id="reminderTable" styleClass="table-view" VBox.vgrow="ALWAYS">
+               <columns>
+                  <TableColumn fx:id="reminderIdColumn" text="提醒ID" />
+                  <TableColumn fx:id="studentIdColumn" text="学号" />
+                  <TableColumn fx:id="studentNameColumn" text="姓名" />
+                  <TableColumn fx:id="typeColumn" text="类型" />
+                  <TableColumn fx:id="titleColumn" text="标题" />
+                  <TableColumn fx:id="priorityColumn" text="优先级" />
+                  <TableColumn fx:id="statusColumn" text="状态" />
+                  <TableColumn fx:id="createTimeColumn" text="创建时间" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+      </VBox>
+
+      <!-- 分页控件区域 -->
+      <HBox spacing="10.0" alignment="CENTER" styleClass="pagination-area">
+         <children>
+            <Button fx:id="firstPageButton" mnemonicParsing="false" onAction="#goToFirstPage" text="首页" styleClass="secondary-button" />
+            <Button fx:id="prevPageButton" mnemonicParsing="false" onAction="#goToPrevPage" text="上一页" styleClass="secondary-button" />
+            <Label fx:id="pageInfoLabel" text="第 1 页 / 共 1 页" styleClass="page-info" />
+            <Button fx:id="nextPageButton" mnemonicParsing="false" onAction="#goToNextPage" text="下一页" styleClass="secondary-button" />
+            <Button fx:id="lastPageButton" mnemonicParsing="false" onAction="#goToLastPage" text="末页" styleClass="secondary-button" />
+            <ComboBox fx:id="pageSizeCombo" styleClass="page-size-combo">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="10" />
+                     <String fx:value="20" />
+                     <String fx:value="50" />
+                     <String fx:value="100" />
+                  </FXCollections>
+               </items>
+            </ComboBox>
+         </children>
+         <HBox.margin>
+            <Insets left="20.0" right="20.0" bottom="10.0" />
+         </HBox.margin>
+      </HBox>
+
+      <!-- 详情区域 -->
+      <VBox spacing="10.0" styleClass="detail-area">
+         <children>
+            <Label text="提醒详情" styleClass="detail-title" />
+            <TextArea fx:id="reminderDetailArea" editable="false" wrapText="true" styleClass="detail-text" VBox.vgrow="ALWAYS" />
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" bottom="20.0" />
+         </VBox.margin>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

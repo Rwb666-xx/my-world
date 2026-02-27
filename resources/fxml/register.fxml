@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dorm.view.RegisterViewController">
+   <fx:define>
+      <ToggleGroup fx:id="userTypeGroup" />
+   </fx:define>
+   <children>
+      <!-- 顶部占位 -->
+      <Region VBox.vgrow="ALWAYS" />
+
+      <!-- 注册卡片容器 -->
+      <HBox alignment="CENTER">
+         <children>
+            <VBox styleClass="login-pane" maxWidth="550" spacing="25" alignment="CENTER">
+               <padding>
+                  <Insets bottom="40" left="40" right="40" top="40" />
+               </padding>
+               <children>
+                  <!-- 标题区域 -->
+                  <VBox spacing="10" alignment="CENTER">
+                     <children>
+                        <Label styleClass="login-title" text="创建账号" />
+                        <Label styleClass="welcome-subtitle" text="加入宿舍管理系统" />
+                     </children>
+                  </VBox>
+
+                  <!-- 表单区域 -->
+                  <VBox spacing="18" alignment="CENTER">
+                     <children>
+                        <!-- 用户名输入框 -->
+                        <VBox spacing="8" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="用户名：" styleClass="form-label" />
+                              <TextField fx:id="usernameField" styleClass="login-field" maxWidth="400" promptText="请输入用户名" />
+                           </children>
+                        </VBox>
+
+                        <!-- 密码输入框 -->
+                        <VBox spacing="8" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="密码：" styleClass="form-label" />
+                              <PasswordField fx:id="passwordField" styleClass="login-field" maxWidth="400" promptText="请输入密码（至少6位）" />
+                           </children>
+                        </VBox>
+
+                        <!-- 确认密码输入框 -->
+                        <VBox spacing="8" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="确认密码：" styleClass="form-label" />
+                              <PasswordField fx:id="confirmPasswordField" styleClass="login-field" maxWidth="400" promptText="请再次输入密码" />
+                           </children>
+                        </VBox>
+
+                        <!-- 用户类型选择 -->
+                        <VBox spacing="8" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="用户类型：" styleClass="form-label" />
+                              <HBox spacing="30" alignment="CENTER_LEFT">
+                                 <children>
+                                    <RadioButton fx:id="adminRadioButton" text="管理员" selected="true" toggleGroup="$userTypeGroup" />
+                                    <RadioButton fx:id="studentRadioButton" text="学生" toggleGroup="$userTypeGroup" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+
+                        <!-- 按钮区域 -->
+                        <HBox alignment="CENTER" spacing="20">
+                           <children>
+                              <Button fx:id="registerButton" styleClass="login-button" onAction="#handleRegister" text="创建账号" />
+                              <Button fx:id="backButton" styleClass="secondary-button" onAction="#backToLogin" text="返回登录" />
+                           </children>
+                        </HBox>
+
+                        <!-- 提示信息 -->
+                        <Label fx:id="messageLabel" styleClass="message-label" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+
+      <!-- 底部占位 -->
+      <Region VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>
