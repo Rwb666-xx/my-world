@@ -261,9 +261,253 @@ A: 确保所有FXML文件的controller属性配置正确。
 
 ## 许可证
 
-本项目仅用于项目设计和学习和实验室考核目的。
+本项目仅用于课程设计和学习目的。
 
 ## 作者
 
-
 任万博 - 2413041837
+
+---
+
+# 个人修改/扩展内容
+
+本章节记录了本人在课程设计过程中对宿舍管理系统的各项修改和功能扩展内容。
+
+## 一、核心功能扩展
+
+### 1. 维修申请管理模块（新增核心功能）
+
+
+
+#### 学生端功能
+- **在线提交维修申请**：学生可通过图形界面填写故障位置、故障描述、联系方式等信息
+- **查看申请历史**：学生可以查看自己提交的所有维修申请记录
+- **实时进度跟踪**：实时查看维修申请的处理状态
+
+#### 管理员端功能
+- **待处理申请列表**：集中展示所有待处理的维修申请
+- **状态更新管理**：支持将申请状态从"待受理"更新为"已受理"、"维修中"、"已完成"
+- **处理信息记录**：记录处理人和完成时间
+
+#### 技术实现
+- 新增 `RepairApplication` 实体类
+- 新增 `RepairApplicationDao` 数据访问接口
+- 新增 `RepairApplicationService` 业务逻辑层
+- 新增 `RepairApplicationController` 控制层
+- 新增 `StudentRepairController.java` 学生端视图控制器
+- 新增 `AdminRepairController.java` 管理员端视图控制器
+- 新增 `submit_repair.fxml` 学生提交维修申请界面
+- 新增 `student_repair.fxml` 学生维修申请列表界面
+- 新增 `admin_repair.fxml` 管理员维修管理界面
+
+### 2. 通知提醒功能（新增功能）
+
+#### 功能说明
+- 管理员可以向学生发送通知提醒
+- 学生可以查看自己的通知列表
+- 支持多种提醒类型
+
+#### 新增文件
+- 新增 `Reminder` 实体类
+- 新增 `ReminderDao`、`ReminderService`
+- 新增 `ReminderController`
+- 新增 `reminder_management_new.fxml` 界面
+
+### 3. 公告管理功能（新增功能）
+
+#### 功能说明
+- 管理员可以发布宿舍管理公告
+- 学生可以查看最新公告
+- 公告包含标题、内容、发布时间等信息
+
+#### 新增文件
+- 新增 `Announcement` 实体类
+- 新增 `AnnouncementDao`、`AnnouncementService`
+- 新增 `AnnouncementController`
+
+### 4. 住宿管理功能（新增功能）
+
+#### 功能说明
+- 完整的住宿登记管理
+- 学生入住、退宿操作
+- 住宿历史记录查询
+
+#### 新增文件
+- 新增 `Accommodation` 实体类
+- 新增 `AccommodationDao`、`AccommodationService`
+- 新增 `AccommodationController`
+- 新增 `accommodation_management.fxml` 界面
+
+## 二、数据库扩展
+
+### 新增数据表
+
+#### 1. 维修申请表 (repair_application)
+```sql
+CREATE TABLE repair_application (
+    apply_id VARCHAR(50) PRIMARY KEY,
+    student_id VARCHAR(20) NOT NULL,
+    fault_location VARCHAR(100) NOT NULL,
+    fault_desc TEXT NOT NULL,
+    contact_phone VARCHAR(20) NOT NULL,
+    apply_time DATETIME NOT NULL,
+    status VARCHAR(20) DEFAULT 'pending',
+    handler VARCHAR(50),
+    finish_time DATETIME,
+    FOREIGN KEY (student_id) REFERENCES student(student_id)
+);
+```
+
+#### 2. 提醒表 (reminder)
+```sql
+CREATE TABLE reminder (
+    reminder_id VARCHAR(50) PRIMARY KEY,
+    student_id VARCHAR(20) NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    content TEXT NOT NULL,
+    create_time DATETIME NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (student_id) REFERENCES student(student_id)
+);
+```
+
+#### 3. 公告表 (announcement)
+```sql
+CREATE TABLE announcement (
+    announcement_id VARCHAR(50) PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    content TEXT NOT NULL,
+    create_time DATETIME NOT NULL,
+    publisher VARCHAR(50) NOT NULL
+);
+```
+
+#### 4. 住宿记录表 (accommodation)
+```sql
+CREATE TABLE accommodation (
+    accommodation_id VARCHAR(50) PRIMARY KEY,
+    student_id VARCHAR(20) NOT NULL,
+    dorm_id VARCHAR(20) NOT NULL,
+    check_in_date DATE NOT NULL,
+    check_out_date DATE,
+    status VARCHAR(20) DEFAULT '入住中',
+    FOREIGN KEY (student_id) REFERENCES student(student_id),
+    FOREIGN KEY (dorm_id) REFERENCES dormitory(dorm_id)
+);
+```
+
+## 三、界面优化与改进
+
+### 1. 登录界面优化
+- 美化登录界面布局
+- 添加注册功能入口
+- 添加密码修改功能
+
+### 2. 主界面优化
+- 采用选项卡式导航设计
+- 优化菜单结构
+- 添加快捷操作按钮
+
+### 3. 学生端界面
+- 重新设计学生仪表盘
+- 优化信息展示布局
+- 增加快捷功能入口
+
+### 4. 统计图表
+- 使用 JFreeChart 实现数据可视化
+- 添加宿舍入住率统计图表
+- 添加学生分布统计图表
+- 添加缴费情况统计图表
+
+## 四、代码架构优化
+
+### 1. 分层架构完善
+```
+src/main/java/org/dorm/
+├── controller/          # 控制层 - 处理用户请求
+├── model/
+│   ├── dao/            # 数据访问层 - 数据库操作
+│   ├── entity/         # 实体层 - 数据模型
+│   └── service/        # 服务层 - 业务逻辑
+├── util/               # 工具类
+└── view/               # 视图层 - JavaFX界面控制器
+```
+
+### 2. 设计模式应用
+- **单例模式**：数据库连接管理 (DatabaseUtil)
+- **观察者模式**：数据更新监听 (DataUpdateManager)
+- **工厂模式**：业务对象创建
+
+### 3. 代码规范
+- 统一的命名规范
+- 完整的注释文档
+- 统一的异常处理
+
+## 五、安全性增强
+
+### 1. 密码加密
+- 使用 MD5 加密存储用户密码
+- 密码修改时进行加密处理
+
+### 2. 权限控制
+- 管理员和学生功能权限分离
+- 界面根据用户角色动态显示
+
+### 3. 输入验证
+- 用户输入数据校验
+- SQL 注入防护
+
+## 六、可扩展性设计
+
+### 1. 模块化设计
+- 各功能模块独立实现
+- 便于后续功能扩展
+
+### 2. 配置化管理
+- 数据库连接参数集中管理
+- 便于环境切换
+
+### 3. 接口设计
+- 统一的 DAO 接口规范
+- 统一的服务层接口规范
+
+## 七、测试与调试
+
+### 1. 单元测试
+- JUnit 测试框架集成
+- 核心业务方法测试
+
+### 2. 集成测试
+- 数据库连接测试
+- 功能模块集成测试
+
+### 3. 调试工具
+- SLF4J 日志框架集成
+- 分级日志记录
+
+## 八、个人开发心得
+
+### 技术收获
+1. **JavaFX 桌面开发**：掌握了 JavaFX 的界面开发技术，包括 FXML、CSS 样式、事件处理等
+2. **数据库设计**：深入学习了 MySQL 数据库设计和优化
+3. **MVC 架构**：实践了标准的 MVC 设计模式
+4. **Maven 构建**：熟练使用 Maven 进行项目管理和构建
+
+### 能力提升
+1. **问题分析能力**：学会分析需求，将功能转化为技术实现
+2. **代码组织能力**：掌握了大型项目的代码组织和管理
+3. **文档编写能力**：学会了编写技术文档和使用说明
+
+### 改进方向
+如果继续完善本系统，可以考虑以下方向：
+1. **Web 版开发**：基于现有后端，开发 Web 前端版本
+2. **移动端支持**：开发移动端 APP
+3. **数据统计增强**：增加更多数据分析和报表功能
+4. **消息推送**：实现实时消息推送功能
+5. **文件上传**：增加图片上传功能（如维修现场照片）
+
+---
+
+**修改日期**: 2026年1月
+**修改人**: 任万博 (2413041837)
+**项目版本**: 1.0.0
