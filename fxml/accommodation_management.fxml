@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dorm.view.AccommodationManagementController" spacing="20.0">
+   <children>
+      <!-- 标题区域 -->
+      <VBox spacing="10" alignment="CENTER">
+         <children>
+            <Label text="🏠 住宿分配管理" styleClass="page-title" />
+            <Label text="管理系统中学生的宿舍分配" styleClass="page-subtitle" />
+            <Separator />
+         </children>
+         <VBox.margin>
+            <Insets top="20" right="20" bottom="10" left="20" />
+         </VBox.margin>
+      </VBox>
+
+      <!-- 工具栏区域 -->
+      <HBox spacing="15" alignment="CENTER_LEFT">
+         <children>
+            <!-- 操作按钮组 -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+               <children>
+                  <Button fx:id="assignBedButton" text="分配床位" onAction="#showAssignBedDialog" />
+                  <Button fx:id="changeBedButton" text="调换床位" onAction="#showChangeBedDialog" />
+                  <Button fx:id="checkoutButton" text="退宿" onAction="#showCheckoutDialog" />
+                  <Button fx:id="refreshButton" text="刷新" onAction="#refreshAccommodations" />
+               </children>
+            </HBox>
+
+            <!-- 搜索区域 -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+               <children>
+                  <Label text="🔍" />
+                  <TextField fx:id="searchField" promptText="搜索学生姓名、学号..." prefWidth="200" />
+                  <ComboBox fx:id="searchTypeCombo" prefWidth="100" />
+                  <Button fx:id="searchButton" text="搜索" onAction="#searchAccommodations" />
+               </children>
+            </HBox>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- 统计信息 -->
+            <VBox spacing="5" alignment="CENTER_RIGHT">
+               <children>
+                  <Label fx:id="statusLabel" text="共 0 条记录" />
+                  <Label fx:id="availableBedsLabel" text="空闲床位: 0" />
+               </children>
+            </VBox>
+         </children>
+         <HBox.margin>
+            <Insets top="10" right="20" bottom="15" left="20" />
+         </HBox.margin>
+      </HBox>
+
+      <!-- 住宿列表区域 -->
+      <VBox VBox.vgrow="ALWAYS">
+         <children>
+            <TableView fx:id="accommodationTable" prefHeight="400">
+               <columns>
+                  <TableColumn fx:id="studentIdColumn" text="学号" prefWidth="120" />
+                  <TableColumn fx:id="studentNameColumn" text="姓名" prefWidth="90" />
+                  <TableColumn fx:id="collegeColumn" text="学院" prefWidth="140" />
+                  <TableColumn fx:id="classColumn" text="班级" prefWidth="120" />
+                  <TableColumn fx:id="dormitoryColumn" text="宿舍号" prefWidth="100" />
+                  <TableColumn fx:id="bedIdColumn" text="床位号" prefWidth="90" />
+                  <TableColumn fx:id="checkinDateColumn" text="入住日期" prefWidth="110" />
+                  <TableColumn fx:id="statusColumn" text="住宿状态" prefWidth="100" />
+               </columns>
+            </TableView>
+         </children>
+         <VBox.margin>
+            <Insets top="10" right="20" bottom="20" left="20" />
+         </VBox.margin>
+      </VBox>
+
+      <!-- 底部状态栏 -->
+      <HBox spacing="20" alignment="CENTER_LEFT">
+         <children>
+            <Label fx:id="messageLabel" text="就绪" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="lastUpdateLabel" text="最后更新: 刚刚" />
+         </children>
+         <HBox.margin>
+            <Insets top="10" right="20" bottom="15" left="20" />
+         </HBox.margin>
+      </HBox>
+   </children>
+</VBox>

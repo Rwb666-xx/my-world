@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
+
+<VBox stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dorm.view.ViolationManagementController" spacing="20.0" styleClass="violation-management-root">
+   <children>
+      <!-- 标题区域 -->
+      <VBox spacing="15" alignment="CENTER" styleClass="page-header">
+         <children>
+            <Label text="⚠️" styleClass="page-icon" />
+            <Label text="违纪管理" styleClass="page-title" />
+            <Label text="管理系统中学生的违纪行为记录" styleClass="page-subtitle" />
+            <Separator styleClass="page-separator" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+         </VBox.margin>
+      </VBox>
+
+      <!-- 工具栏区域 -->
+      <HBox spacing="15" alignment="CENTER_LEFT" styleClass="toolbar">
+         <children>
+            <!-- 操作按钮组 -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+               <children>
+                  <Button fx:id="addButton" styleClass="primary-button" onAction="#showAddDialog" text="➕ 添加违纪记录" />
+                  <Button fx:id="editButton" styleClass="secondary-button" onAction="#showEditDialog" text="✏️ 编辑" />
+                  <Button fx:id="deleteButton" styleClass="danger-button" onAction="#deleteViolation" text="🗑️ 删除" />
+                  <Button fx:id="refreshButton" styleClass="info-button" onAction="#refreshViolations" text="🔄 刷新" />
+               </children>
+            </HBox>
+
+            <!-- 搜索区域 -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+               <children>
+                  <Label text="🔍" styleClass="search-icon" />
+                  <TextField fx:id="searchField" promptText="搜索学生姓名、学号..." styleClass="search-field" />
+                  <ComboBox fx:id="searchTypeCombo" styleClass="search-combo">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="全部" />
+                           <String fx:value="学号" />
+                           <String fx:value="姓名" />
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
+                  <Button fx:id="searchButton" styleClass="search-button" onAction="#searchViolations" text="搜索" />
+               </children>
+            </HBox>
+
+            <!-- 状态显示 -->
+            <VBox spacing="5" alignment="CENTER_RIGHT">
+               <children>
+                  <Label fx:id="statusLabel" styleClass="status-info" text="共 0 条记录" />
+                  <Label fx:id="selectedLabel" styleClass="status-info" text="已选择 0 项" />
+               </children>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="15.0" left="20.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+
+      <!-- 违纪记录列表区域 -->
+      <VBox spacing="10" VBox.vgrow="ALWAYS" styleClass="table-container">
+         <children>
+            <!-- 表格 -->
+            <TableView fx:id="violationTable" styleClass="modern-table">
+               <columns>
+                  <TableColumn fx:id="violationIdColumn" text="违纪单号" prefWidth="120" styleClass="table-column" visible="true" />
+                  <TableColumn fx:id="studentIdColumn" text="学号" prefWidth="110" styleClass="table-column" visible="true" />
+                  <TableColumn fx:id="studentNameColumn" text="学生姓名" prefWidth="90" styleClass="table-column" visible="true" />
+                  <TableColumn fx:id="descriptionColumn" text="违纪描述" prefWidth="180" styleClass="table-column" visible="true" />
+                  <TableColumn fx:id="violationDateColumn" text="违纪日期" prefWidth="110" styleClass="table-column" visible="true" />
+                  <TableColumn fx:id="penaltyColumn" text="处罚措施" prefWidth="130" styleClass="table-column" visible="true" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+
+            <!-- 分页控件 -->
+            <HBox spacing="15" alignment="CENTER" styleClass="pagination-area">
+               <children>
+                  <Button fx:id="firstPageButton" styleClass="pagination-button" onAction="#goToFirstPage" text="首页" />
+                  <Button fx:id="prevPageButton" styleClass="pagination-button" onAction="#goToPrevPage" text="上一页" />
+                  <Label fx:id="pageInfoLabel" styleClass="page-info" text="第 1 页 / 共 1 页" />
+                  <Button fx:id="nextPageButton" styleClass="pagination-button" onAction="#goToNextPage" text="下一页" />
+                  <Button fx:id="lastPageButton" styleClass="pagination-button" onAction="#goToLastPage" text="末页" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label text="每页显示:" styleClass="page-size-label" />
+                  <ComboBox fx:id="pageSizeCombo" styleClass="page-size-combo" onAction="#changePageSize">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="10" />
+                           <String fx:value="20" />
+                           <String fx:value="50" />
+                           <String fx:value="100" />
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </VBox>
+
+      <!-- 底部状态栏 -->
+      <HBox spacing="20" alignment="CENTER_LEFT" styleClass="status-bar">
+         <children>
+            <Label fx:id="messageLabel" styleClass="status-message" text="就绪" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="lastUpdateLabel" styleClass="status-info" text="最后更新: --:--:--" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>

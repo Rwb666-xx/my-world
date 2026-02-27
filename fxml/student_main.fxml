@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+
+<BorderPane stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dorm.view.StudentMainController">
+   <top>
+      <!-- 顶部标题栏 -->
+      <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+         <children>
+            <HBox alignment="CENTER_LEFT" styleClass="main-header">
+               <children>
+                  <Label fx:id="titleLabel" styleClass="main-title" text="学生宿舍管理系统">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label fx:id="userInfoLabel" />
+                  <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogout" text="退出登录" styleClass="primary-button" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <left>
+      <!-- 左侧学生菜单栏 -->
+      <VBox spacing="5.0" styleClass="menu-bar">
+         <children>
+            <!-- 学生专属功能 -->
+            <Label text="📋 我的服务" styleClass="menu-section-title" />
+
+            <Button fx:id="myInfoButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStudentMyInfo" text="👤 我的信息" styleClass="menu-button">
+               <VBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+
+            <Button fx:id="submitRepairButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStudentSubmitRepair" text="🔧 提交维修申请" styleClass="menu-button">
+               <VBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
+               </VBox.margin>
+            </Button>
+
+            <Button fx:id="myRepairButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStudentMyRepair" text="📝 我的维修申请" styleClass="menu-button">
+               <VBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
+               </VBox.margin>
+            </Button>
+
+            <Separator styleClass="menu-separator" />
+
+            <Label text="💰 费用信息" styleClass="menu-section-title" />
+
+            <Button fx:id="myPaymentButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStudentMyPayment" text="💳 我的缴费记录" styleClass="menu-button">
+               <VBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+
+            <Separator styleClass="menu-separator" />
+
+            <Label text="⚠️ 违纪信息" styleClass="menu-section-title" />
+
+            <Button fx:id="myViolationButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStudentMyViolation" text="🚫 我的违纪记录" styleClass="menu-button">
+               <VBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <Separator styleClass="menu-separator" />
+
+            <Button fx:id="changePasswordButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStudentChangePassword" text="🔑 修改密码" styleClass="menu-button">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="0.0" right="0.0" top="0.0" />
+         </VBox.margin>
+      </VBox>
+   </left>
+   <center>
+      <!-- 主内容区域 -->
+      <VBox fx:id="contentArea" spacing="20.0" styleClass="main-content-area">
+         <children>
+            <!-- 欢迎区域 -->
+            <VBox spacing="15" alignment="CENTER" styleClass="welcome-section">
+               <children>
+                  <Label text="🏠" styleClass="welcome-icon" />
+                  <Label fx:id="welcomeLabel" text="欢迎使用学生宿舍系统" styleClass="welcome-title" />
+                  <Label text="请使用左侧菜单进行各项操作" styleClass="welcome-subtitle" />
+                  <Separator styleClass="welcome-separator" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="30.0" right="30.0" top="40.0" />
+               </VBox.margin>
+            </VBox>
+
+
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
