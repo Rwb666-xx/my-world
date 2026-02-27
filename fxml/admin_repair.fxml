@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dorm.view.AdminRepairController" spacing="10.0">
+   <children>
+      <!-- 标题 -->
+      <Label text="维修管理" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </Label>
+
+      <!-- 操作按钮区域 -->
+      <HBox spacing="10.0">
+         <children>
+            <Button fx:id="acceptButton" mnemonicParsing="false" onAction="#acceptApplication" text="受理申请">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="completeButton" mnemonicParsing="false" onAction="#completeApplication" text="完成维修" />
+            <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshApplications" text="刷新" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="statusLabel" text="共0条记录" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+
+      <!-- 维修申请列表 -->
+      <TableView fx:id="repairTable" VBox.vgrow="ALWAYS">
+         <columns>
+            <TableColumn fx:id="applyIdColumn" text="申请单号" />
+            <TableColumn fx:id="studentIdColumn" text="学号" />
+            <TableColumn fx:id="studentNameColumn" text="学生姓名" />
+            <TableColumn fx:id="faultLocationColumn" text="故障位置" />
+            <TableColumn fx:id="faultDescColumn" text="故障描述" />
+            <TableColumn fx:id="applyTimeColumn" text="申请时间" />
+            <TableColumn fx:id="statusColumn" text="处理状态" />
+            <TableColumn fx:id="handlerColumn" text="处理人" />
+            <TableColumn fx:id="finishTimeColumn" text="完成时间" />
+         </columns>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+         </VBox.margin>
+      </TableView>
+
+      <!-- 提示信息 -->
+      <Label fx:id="messageLabel" textFill="RED">
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </Label>
+   </children>
+</VBox>

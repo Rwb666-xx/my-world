@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.chart.PieChart?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dorm.view.StudentDashboardController" spacing="20.0">
+   <children>
+      <!-- 标题区域 -->
+      <VBox spacing="10" alignment="CENTER">
+         <children>
+            <Label text="🏠 个人中心" styleClass="page-title" />
+            <Label text="查看我的宿舍生活信息" styleClass="page-subtitle" />
+            <Separator />
+         </children>
+         <VBox.margin>
+            <Insets top="20" right="20" bottom="10" left="20" />
+         </VBox.margin>
+      </VBox>
+
+      <!-- 信息卡片区域 -->
+      <HBox spacing="20" alignment="CENTER">
+         <children>
+            <!-- 缴费信息卡片 -->
+            <VBox spacing="15" styleClass="info-card" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox spacing="10" alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="💰" styleClass="card-icon" />
+                        <Label text="缴费信息" styleClass="card-title" />
+                     </children>
+                  </HBox>
+                  <VBox spacing="8">
+                     <children>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="待缴费金额:" styleClass="info-label" />
+                              <Label fx:id="pendingPaymentLabel" text="¥0.00" styleClass="info-value warning" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="本月缴费:" styleClass="info-label" />
+                              <Label fx:id="currentMonthPaymentLabel" text="¥0.00" styleClass="info-value" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="历史总缴费:" styleClass="info-label" />
+                              <Label fx:id="totalPaymentLabel" text="¥0.00" styleClass="info-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Button text="查看详情" onAction="#showPaymentDetails" styleClass="card-button" />
+               </children>
+               <VBox.margin>
+                  <Insets left="20" right="20" top="20" bottom="20" />
+               </VBox.margin>
+            </VBox>
+
+            <!-- 违纪信息卡片 -->
+            <VBox spacing="15" styleClass="info-card" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox spacing="10" alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="⚠️" styleClass="card-icon" />
+                        <Label text="违纪情况" styleClass="card-title" />
+                     </children>
+                  </HBox>
+                  <VBox spacing="8">
+                     <children>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="违纪次数:" styleClass="info-label" />
+                              <Label fx:id="violationCountLabel" text="0次" styleClass="info-value" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="最近违纪:" styleClass="info-label" />
+                              <Label fx:id="latestViolationLabel" text="无" styleClass="info-value" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="违纪状态:" styleClass="info-label" />
+                              <Label fx:id="violationStatusLabel" text="良好" styleClass="info-value good" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Button text="查看详情" onAction="#showViolationDetails" styleClass="card-button" />
+               </children>
+               <VBox.margin>
+                  <Insets left="20" right="20" top="20" bottom="20" />
+               </VBox.margin>
+            </VBox>
+
+            <!-- 维修信息卡片 -->
+            <VBox spacing="15" styleClass="info-card" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox spacing="10" alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="🔧" styleClass="card-icon" />
+                        <Label text="维修申请" styleClass="card-title" />
+                     </children>
+                  </HBox>
+                  <VBox spacing="8">
+                     <children>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="待处理:" styleClass="info-label" />
+                              <Label fx:id="pendingRepairLabel" text="0个" styleClass="info-value" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="进行中:" styleClass="info-label" />
+                              <Label fx:id="inProgressRepairLabel" text="0个" styleClass="info-value" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="已完成:" styleClass="info-label" />
+                              <Label fx:id="completedRepairLabel" text="0个" styleClass="info-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Button text="查看详情" onAction="#showRepairDetails" styleClass="card-button" />
+               </children>
+               <VBox.margin>
+                  <Insets left="20" right="20" top="20" bottom="20" />
+               </VBox.margin>
+            </VBox>
+         </children>
+         <HBox.margin>
+            <Insets left="20" right="20" top="10" bottom="20" />
+         </HBox.margin>
+      </HBox>
+
+      <!-- 个人信息区域 -->
+      <VBox spacing="15" styleClass="info-card">
+         <children>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+               <children>
+                  <Label text="👤" styleClass="card-icon" />
+                  <Label text="个人信息" styleClass="card-title" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button text="修改信息" onAction="#showEditProfile" styleClass="small-button" />
+               </children>
+            </HBox>
+            <GridPane hgap="20" vgap="10">
+               <columnConstraints>
+                  <ColumnConstraints minWidth="100" />
+                  <ColumnConstraints minWidth="150" />
+                  <ColumnConstraints minWidth="100" />
+                  <ColumnConstraints minWidth="150" />
+               </columnConstraints>
+               <children>
+                  <Label text="学号:" styleClass="info-label" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                  <Label fx:id="studentIdLabel" styleClass="info-value" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                  <Label text="姓名:" styleClass="info-label" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                  <Label fx:id="nameLabel" styleClass="info-value" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+                  <Label text="学院:" styleClass="info-label" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                  <Label fx:id="collegeLabel" styleClass="info-value" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="班级:" styleClass="info-label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label fx:id="classLabel" styleClass="info-value" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+                  <Label text="性别:" styleClass="info-label" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                  <Label fx:id="genderLabel" styleClass="info-value" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="床位:" styleClass="info-label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Label fx:id="bedIdLabel" styleClass="info-value" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+
+                  <Label text="邮箱:" styleClass="info-label" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                  <Label fx:id="emailLabel" styleClass="info-value" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="电话:" styleClass="info-label" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Label fx:id="phoneLabel" styleClass="info-value" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+         </children>
+         <VBox.margin>
+            <Insets left="20" right="20" top="10" bottom="20" />
+         </VBox.margin>
+      </VBox>
+
+      <!-- 最近活动区域 -->
+      <VBox spacing="15" styleClass="info-card">
+         <children>
+            <Label text="📅 最近活动" styleClass="card-title" />
+            <VBox fx:id="recentActivityContainer" spacing="8">
+               <children>
+                  <Label text="暂无最近活动" styleClass="info-value" />
+               </children>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets left="20" right="20" top="10" bottom="20" />
+         </VBox.margin>
+      </VBox>
+   </children>
+</VBox>

@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+
+<BorderPane stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dorm.view.MainController">
+   <top>
+      <!-- 顶部标题栏 -->
+      <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+         <children>
+            <HBox alignment="CENTER_LEFT" styleClass="main-header">
+               <children>
+                  <Label fx:id="titleLabel" styleClass="main-title" text="宿舍管理系统">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label fx:id="userInfoLabel" textFill="WHITE" />
+                  <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogout" text="退出登录" styleClass="primary-button" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <left>
+      <!-- 左侧菜单栏 -->
+      <VBox spacing="5.0" styleClass="menu-bar">
+         <children>
+            <Button fx:id="studentManageButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStudentManagement" text="学生管理" styleClass="menu-button">
+               <VBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="dormManageButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showDormitoryManagement" text="宿舍管理" styleClass="menu-button">
+               <VBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="accommodationManageButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showAccommodationManagement" text="住宿分配" styleClass="menu-button">
+               <VBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="repairManageButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showRepairManagement" text="维修管理" styleClass="menu-button">
+               <VBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="paymentManageButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showPaymentManagement" text="缴费管理" styleClass="menu-button">
+               <VBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="violationManageButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showViolationManagement" text="违纪管理" styleClass="menu-button">
+               <VBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="myInfoButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showMyInfo" text="我的信息" styleClass="menu-button">
+               <VBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="statisticsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStatistics" text="统计查询" styleClass="menu-button">
+               <VBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="reminderManageButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showReminderManagement" text="提醒管理" styleClass="menu-button">
+               <VBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
+               </VBox.margin>
+            </Button>
+            <Region VBox.vgrow="ALWAYS" />
+            <Button fx:id="changePasswordButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showChangePassword" text="修改密码" styleClass="menu-button">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="2.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="0.0" left="0.0" right="0.0" top="0.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="10.0" left="0.0" right="0.0" top="0.0" />
+         </padding>
+      </VBox>
+   </left>
+   <center>
+      <!-- 主内容区域 -->
+      <ScrollPane fitToWidth="true" styleClass="main-content-scroll">
+         <content>
+            <VBox fx:id="contentArea" spacing="35.0" styleClass="main-content-area">
+               <padding>
+                  <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+               </padding>
+               <children>
+                  <!-- 欢迎头部 -->
+                  <VBox spacing="25" alignment="CENTER">
+                     <children>
+                        <Label styleClass="main-welcome-icon" text="🏢" />
+                        <Label styleClass="main-welcome-title" text="宿舍管理系统" textAlignment="CENTER" />
+                        <Label styleClass="main-welcome-subtitle" text="现代化 · 智能 · 高效" textAlignment="CENTER" />
+                        <Separator styleClass="main-welcome-separator" />
+                     </children>
+                  </VBox>
+
+                  <!-- 系统概览区域 -->
+                  <VBox spacing="30" alignment="CENTER">
+                     <children>
+                        <Label text="📊 系统概览" styleClass="section-main-title" />
+
+                        <!-- 统计卡片网格 -->
+                        <VBox spacing="25" alignment="CENTER">
+                           <children>
+                              <!-- 第一行卡片 -->
+                              <HBox spacing="25" alignment="CENTER">
+                                 <children>
+                                    <!-- 学生统计卡片 -->
+                                    <VBox styleClass="main-stats-card" spacing="15">
+                                       <padding>
+                                          <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                                       </padding>
+                                       <children>
+                                          <HBox spacing="20" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label text="👥" styleClass="main-stats-icon" />
+                                                <VBox spacing="5">
+                                                   <children>
+                                                      <Label text="在校学生" styleClass="main-stats-label" />
+                                                      <Label fx:id="studentCount" text="3" styleClass="main-stats-value" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <Label text="今日新增: +0" styleClass="main-stats-trend positive" />
+                                       </children>
+                                    </VBox>
+
+                                    <!-- 宿舍统计卡片 -->
+                                    <VBox styleClass="main-stats-card" spacing="15">
+                                       <padding>
+                                          <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                                       </padding>
+                                       <children>
+                                          <HBox spacing="20" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label text="🏢" styleClass="main-stats-icon" />
+                                                <VBox spacing="5">
+                                                   <children>
+                                                      <Label text="宿舍数量" styleClass="main-stats-label" />
+                                                      <Label fx:id="dormitoryCount" text="3" styleClass="main-stats-value" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <Label text="使用率: 100%" styleClass="main-stats-trend success" />
+                                       </children>
+                                    </VBox>
+
+                                    <!-- 床位统计卡片 -->
+                                    <VBox styleClass="main-stats-card" spacing="15">
+                                       <padding>
+                                          <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                                       </padding>
+                                       <children>
+                                          <HBox spacing="20" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label text="🛏️" styleClass="main-stats-icon" />
+                                                <VBox spacing="5">
+                                                   <children>
+                                                      <Label text="床位总数" styleClass="main-stats-label" />
+                                                      <Label fx:id="bedCount" text="8" styleClass="main-stats-value" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <Label text="空闲: 5" styleClass="main-stats-trend info" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+
+                              <!-- 第二行卡片 -->
+                              <HBox spacing="25" alignment="CENTER">
+                                 <children>
+                                    <!-- 维修申请卡片 -->
+                                    <VBox styleClass="main-stats-card" spacing="15">
+                                       <padding>
+                                          <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                                       </padding>
+                                       <children>
+                                          <HBox spacing="20" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label text="🔧" styleClass="main-stats-icon" />
+                                                <VBox spacing="5">
+                                                   <children>
+                                                      <Label text="维修申请" styleClass="main-stats-label" />
+                                                      <Label fx:id="repairCount" text="0" styleClass="main-stats-value" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <Label text="待处理: 0" styleClass="main-stats-trend warning" />
+                                       </children>
+                                    </VBox>
+
+                                    <!-- 系统状态卡片 -->
+                                    <VBox styleClass="main-stats-card" spacing="15">
+                                       <padding>
+                                          <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                                       </padding>
+                                       <children>
+                                          <HBox spacing="20" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label text="⚡" styleClass="main-stats-icon" />
+                                                <VBox spacing="5">
+                                                   <children>
+                                                      <Label text="系统状态" styleClass="main-stats-label" />
+                                                      <Label text="正常运行" styleClass="main-stats-value success" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <Label text="运行时间: 24h" styleClass="main-stats-trend success" />
+                                       </children>
+                                    </VBox>
+
+                                    <!-- 缴费情况卡片 -->
+                                    <VBox styleClass="main-stats-card" spacing="15">
+                                       <padding>
+                                          <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                                       </padding>
+                                       <children>
+                                          <HBox spacing="20" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label text="💰" styleClass="main-stats-icon" />
+                                                <VBox spacing="5">
+                                                   <children>
+                                                      <Label text="缴费情况" styleClass="main-stats-label" />
+                                                      <Label text="2/3" styleClass="main-stats-value" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <Label text="未缴费: 1" styleClass="main-stats-trend warning" />
+                                       </children>
+                                    </VBox>
+
+                                    <!-- 提醒信息卡片 -->
+                                    <VBox styleClass="main-stats-card" spacing="15">
+                                       <padding>
+                                          <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                                       </padding>
+                                       <children>
+                                          <HBox spacing="20" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label text="🔔" styleClass="main-stats-icon" />
+                                                <VBox spacing="5">
+                                                   <children>
+                                                      <Label text="待处理提醒" styleClass="main-stats-label" />
+                                                      <Label fx:id="reminderCount" text="0" styleClass="main-stats-value warning" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <Label fx:id="reminderTrend" text="点击查看详情" styleClass="main-stats-trend info" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+
+                  <!-- 数据可视化区域 -->
+                  <VBox spacing="25" alignment="CENTER">
+                     <children>
+                        <Label text="📈 数据可视化" styleClass="section-main-title" />
+
+                        <HBox spacing="35" alignment="CENTER">
+                           <children>
+                              <!-- 学院分布图 -->
+                              <VBox spacing="15" alignment="CENTER" styleClass="chart-container">
+                                 <children>
+                                    <Label text="学院分布" styleClass="chart-title" />
+                                    <BarChart fx:id="collegeChart" title="" prefWidth="450" prefHeight="320" styleClass="main-chart">
+                                       <xAxis>
+                                          <CategoryAxis side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </BarChart>
+                                 </children>
+                              </VBox>
+
+                              <!-- 宿舍使用情况图 -->
+                              <VBox spacing="15" alignment="CENTER" styleClass="chart-container">
+                                 <children>
+                                    <Label text="宿舍使用情况" styleClass="chart-title" />
+                                    <PieChart fx:id="dormitoryChart" title="" prefWidth="450" prefHeight="320" styleClass="main-chart" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+
+                  <!-- 快速操作区域 -->
+                  <VBox spacing="20" alignment="CENTER">
+                     <children>
+                        <Label text="⚡ 快速操作" styleClass="section-main-title" />
+
+                        <HBox spacing="25" alignment="CENTER">
+                           <children>
+                              <VBox spacing="15" alignment="CENTER" styleClass="quick-action-card">
+                                 <children>
+                                    <Label text="👥" styleClass="quick-action-icon" />
+                                    <Label text="学生管理" styleClass="quick-action-label" />
+                                    <Button text="进入管理" styleClass="quick-action-button" onAction="#showStudentManagement" />
+                                 </children>
+                              </VBox>
+
+                              <VBox spacing="15" alignment="CENTER" styleClass="quick-action-card">
+                                 <children>
+                                    <Label text="🏢" styleClass="quick-action-icon" />
+                                    <Label text="宿舍管理" styleClass="quick-action-label" />
+                                    <Button text="进入管理" styleClass="quick-action-button" onAction="#showDormitoryManagement" />
+                                 </children>
+                              </VBox>
+
+                              <VBox spacing="15" alignment="CENTER" styleClass="quick-action-card">
+                                 <children>
+                                    <Label text="🔧" styleClass="quick-action-icon" />
+                                    <Label text="维修管理" styleClass="quick-action-label" />
+                                    <Button text="进入管理" styleClass="quick-action-button" onAction="#showRepairManagement" />
+                                 </children>
+                              </VBox>
+
+                              <VBox spacing="15" alignment="CENTER" styleClass="quick-action-card">
+                                 <children>
+                                    <Label text="📊" styleClass="quick-action-icon" />
+                                    <Label text="统计查询" styleClass="quick-action-label" />
+                                    <Button text="查看统计" styleClass="quick-action-button" onAction="#showStatistics" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>

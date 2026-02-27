@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dorm.view.StudentInfoController"
+      spacing="25.0" styleClass="main-content-area">
+   <children>
+      <!-- 标题区域 -->
+      <VBox spacing="10.0" styleClass="page-header">
+         <children>
+            <Label text="👤" styleClass="page-icon" />
+            <Label text="我的个人信息" styleClass="page-title" />
+            <Label text="查看和管理您的个人信息" styleClass="page-subtitle" />
+            <Separator styleClass="page-separator" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="30.0" right="30.0" top="20.0" />
+         </VBox.margin>
+      </VBox>
+
+      <!-- 基本信息卡片 -->
+      <VBox spacing="20.0" styleClass="student-info-card">
+         <children>
+            <Label text="📋 基本信息" styleClass="card-title" />
+
+            <GridPane hgap="20.0" vgap="15.0" styleClass="info-grid">
+               <children>
+                  <!-- 第一行 -->
+                  <Label text="学号：" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="info-field-label" />
+                  <Label fx:id="studentIdLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="info-field-value" />
+
+                  <Label text="姓名：" GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="info-field-label" />
+                  <Label fx:id="nameLabel" text="-" GridPane.columnIndex="3" GridPane.rowIndex="0" styleClass="info-field-value" />
+
+                  <!-- 第二行 -->
+                  <Label text="性别：" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="info-field-label" />
+                  <Label fx:id="genderLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="info-field-value" />
+
+                  <Label text="出生日期：" GridPane.columnIndex="2" GridPane.rowIndex="1" styleClass="info-field-label" />
+                  <Label fx:id="birthdayLabel" text="-" GridPane.columnIndex="3" GridPane.rowIndex="1" styleClass="info-field-value" />
+
+                  <!-- 第三行 -->
+                  <Label text="学院：" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="info-field-label" />
+                  <Label fx:id="collegeLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="info-field-value" />
+
+                  <Label text="班级：" GridPane.columnIndex="2" GridPane.rowIndex="2" styleClass="info-field-label" />
+                  <Label fx:id="classLabel" text="-" GridPane.columnIndex="3" GridPane.rowIndex="2" styleClass="info-field-value" />
+
+                  <!-- 第四行 -->
+                  <Label text="邮箱：" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="info-field-label" />
+                  <Label fx:id="emailLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="info-field-value" />
+
+                  <Label text="联系电话：" GridPane.columnIndex="2" GridPane.rowIndex="3" styleClass="info-field-label" />
+                  <Label fx:id="phoneLabel" text="-" GridPane.columnIndex="3" GridPane.rowIndex="3" styleClass="info-field-value" />
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints minWidth="80.0" prefWidth="100.0" />
+                  <ColumnConstraints minWidth="120.0" prefWidth="150.0" />
+                  <ColumnConstraints minWidth="80.0" prefWidth="100.0" />
+                  <ColumnConstraints minWidth="120.0" prefWidth="150.0" />
+               </columnConstraints>
+            </GridPane>
+         </children>
+         <VBox.margin>
+            <Insets left="30.0" right="30.0" />
+         </VBox.margin>
+      </VBox>
+
+      <!-- 住宿信息卡片 -->
+      <VBox spacing="20.0" styleClass="student-info-card">
+         <children>
+            <Label text="🏠 住宿信息" styleClass="card-title" />
+
+            <GridPane hgap="20.0" vgap="15.0" styleClass="info-grid">
+               <children>
+                  <Label text="宿舍楼：" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="info-field-label" />
+                  <Label fx:id="buildingLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="info-field-value" />
+
+                  <Label text="房间号：" GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="info-field-label" />
+                  <Label fx:id="roomLabel" text="-" GridPane.columnIndex="3" GridPane.rowIndex="0" styleClass="info-field-value" />
+
+                  <Label text="床位号：" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="info-field-label" />
+                  <Label fx:id="bedLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="info-field-value" />
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints minWidth="80.0" prefWidth="100.0" />
+                  <ColumnConstraints minWidth="120.0" prefWidth="150.0" />
+                  <ColumnConstraints minWidth="80.0" prefWidth="100.0" />
+                  <ColumnConstraints minWidth="120.0" prefWidth="150.0" />
+               </columnConstraints>
+            </GridPane>
+         </children>
+         <VBox.margin>
+            <Insets left="30.0" right="30.0" />
+         </VBox.margin>
+      </VBox>
+
+      <!-- 操作按钮区域 -->
+      <HBox spacing="20.0" alignment="CENTER">
+         <children>
+            <Button fx:id="refreshButton" styleClass="primary-button" text="🔄 刷新数据" onAction="#handleRefresh" />
+            <Button fx:id="backButton" styleClass="secondary-button" text="⬅️ 返回主界面" onAction="#handleBack" />
+         </children>
+         <HBox.margin>
+            <Insets top="10.0" />
+         </HBox.margin>
+      </HBox>
+
+      <!-- 状态信息 -->
+      <HBox alignment="CENTER">
+         <children>
+            <Label fx:id="statusLabel" styleClass="status-message" text="信息加载完成" />
+         </children>
+         <HBox.margin>
+            <Insets bottom="20.0" />
+         </HBox.margin>
+      </HBox>
+   </children>
+</VBox>
